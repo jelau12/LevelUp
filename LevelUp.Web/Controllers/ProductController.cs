@@ -11,7 +11,7 @@ namespace LevelUp.Web.Controllers
 {
     public class ProductController : Controller
     {
-        string Baseurl = "https://localhost:44350";
+        string Baseurl = "http://localhost:61723";
 
         // GET: Products
         #region Consume Get Method
