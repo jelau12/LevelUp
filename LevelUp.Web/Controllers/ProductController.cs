@@ -28,7 +28,7 @@ namespace LevelUp.Web.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetProducts using HttpClient
-                HttpResponseMessage responeMsg = await client.GetAsync("api/Products/GetProducts");
+                HttpResponseMessage responeMsg = await client.GetAsync("api/Products/GetAllProducts");
 
                 //Checking the response is successful or not which is sent using HttpClient
                 if (responeMsg.IsSuccessStatusCode)

@@ -22,7 +22,7 @@ namespace LevelUp.Api.Controllers
             _context = context;
         }
 
-        [HttpGet("GetProducts")]
+        [HttpGet("GetAllProducts")]
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _context.Products.ToListAsync();
