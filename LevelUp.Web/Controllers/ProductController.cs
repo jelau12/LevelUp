@@ -44,5 +44,9 @@ namespace LevelUp.Web.Controllers
             return View(products);
         }
         #endregion
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
