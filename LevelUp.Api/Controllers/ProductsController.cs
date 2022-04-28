@@ -51,13 +51,13 @@ namespace LevelUp.Api.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Quantity,PicturePath")] Product product)
         {
             //check if any model errors have been added to ModelState
             if (ModelState.IsValid)
             {
-                //add to db and redirect to index
+                //add to protduct to db
                 _context.Add(product);
                 await _context.SaveChangesAsync();
             }

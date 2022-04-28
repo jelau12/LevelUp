@@ -6,6 +6,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using LevelUp.Web.Models;
+using System.Net.Http.Json;
 
 namespace LevelUp.Web.Controllers
 {
@@ -28,7 +29,7 @@ namespace LevelUp.Web.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource GetProducts using HttpClient
-                HttpResponseMessage responeMsg = await client.GetAsync("api/Products/GetAllProducts");
+                HttpResponseMessage responeMsg = await client.GetAsync("/api/Products/GetAllProducts");
 
                 //Checking the response is successful or not which is sent using HttpClient
                 if (responeMsg.IsSuccessStatusCode)
@@ -44,9 +45,35 @@ namespace LevelUp.Web.Controllers
             return View(products);
         }
         #endregion
+
         public IActionResult Create()
         {
             return View();
         }
+
+        [HttpPost]
+        #region Consume Post Method
+        public IActionResult Create(Product product)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl + "/api/Products/Create");
+
+                //HTTP POST
+                var postTask = client.PostAsJsonAsync("Create", product);
+                postTask.Wait();
+
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Server Error.");
+
+            return View(product);
+        } 
+        #endregion
     }
 }
