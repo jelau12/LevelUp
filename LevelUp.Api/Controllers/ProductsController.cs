@@ -64,6 +64,23 @@ namespace LevelUp.Api.Controllers
             return Ok(product);
         }
 
+        // GET: Products/Delete/5
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var Product = await _context.Products
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            _context.Products.Remove(Product);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         //Checks if the product exists in database
         private bool ProductExists(int id)
         {
