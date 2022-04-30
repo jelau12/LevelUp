@@ -76,6 +76,7 @@ namespace LevelUp.Web.Controllers
         }
         #endregion
 
+        #region Consume Delete method
         public IActionResult Delete(int id)
         {
             using (var client = new HttpClient())
@@ -93,6 +94,9 @@ namespace LevelUp.Web.Controllers
                 }
             }
             return RedirectToAction("Index");
-        }
+        } 
+        #endregion
+
+
     }
 }

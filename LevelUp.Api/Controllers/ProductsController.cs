@@ -81,6 +81,43 @@ namespace LevelUp.Api.Controllers
             return Ok();
         }
 
+        // POST: Movies/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost("Edit")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Product product)
+        {
+            //nullcheck
+            if (id != product.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //try to update in db
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    //return 404 if product dosent exsist
+                    if (!ProductExists(product.Id))
+                    {
+                        return NotFound();
+                    }
+                    //else throw exception
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return Ok(product);
+        }
+
         //Checks if the product exists in database
         private bool ProductExists(int id)
         {
