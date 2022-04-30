@@ -73,7 +73,26 @@ namespace LevelUp.Web.Controllers
             ModelState.AddModelError(string.Empty, "Server Error.");
 
             return View(product);
-        } 
+        }
         #endregion
+
+        public IActionResult Delete(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+
+                //HTTP DELETE
+                var deleteTask = client.DeleteAsync("/api/Products/Delete/" + id.ToString());
+                deleteTask.Wait();
+
+                var result = deleteTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -64,8 +64,8 @@ namespace LevelUp.Api.Controllers
             return Ok(product);
         }
 
-        // GET: Products/Delete/5
-        [HttpDelete("Delete")]
+        // POST: Movies/Delete/5
+        [HttpDelete("Delete/{id:int}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
