@@ -94,9 +94,13 @@ namespace LevelUp.Web.Controllers
                 }
             }
             return RedirectToAction("Index");
-        } 
+        }
         #endregion
 
+        public IActionResult Edit(int id)
+        {
+            return View();
+        }
 
     }
 }
