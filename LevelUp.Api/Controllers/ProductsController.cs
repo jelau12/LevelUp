@@ -35,7 +35,7 @@ namespace LevelUp.Api.Controllers
             return Ok(products);
         }
 
-        [HttpGet("GetProductById")]
+        [HttpGet("GetProductById/{id:int}")]
         public async Task<IActionResult> GetProductById(int id)
         {
             var product = await _context.Products.SingleOrDefaultAsync(p => p.Id == id);
@@ -84,15 +84,10 @@ namespace LevelUp.Api.Controllers
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPut("Edit/{id:int}")]
+        [HttpPut("Edit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Product product)
         {
-            //nullcheck
-            if (id != product.Id)
-            {
-                return NotFound();
-            }
-
+            //check for modelstate errors
             if (ModelState.IsValid)
             {
                 try

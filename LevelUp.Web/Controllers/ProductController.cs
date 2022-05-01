@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using LevelUp.Web.Models;
@@ -99,7 +100,48 @@ namespace LevelUp.Web.Controllers
 
         public IActionResult Edit(int id)
         {
-            return View();
+            Product product = null;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                //HTTP GET
+                var responseTask = client.GetAsync("/api/Products/GetProductById/" + id.ToString());
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<Product>();
+                    readTask.Wait();
+
+                    product = readTask.Result;
+                }
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            using (var client = new HttpClient())
+            {
+                //Work here
+                //is succesStatus code failing due to not calling the right uri i think
+
+                client.BaseAddress = new Uri("http://localhost:61723/api/Products/Edit");
+
+                //Send a PUT request to the specified Uri
+                var putTask = client.PutAsJsonAsync<Product>("Edit", product);
+                putTask.Wait();
+
+                var result = putTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(product);
         }
 
     }
