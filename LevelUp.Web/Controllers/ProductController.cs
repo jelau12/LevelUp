@@ -104,7 +104,9 @@ namespace LevelUp.Web.Controllers
 
             using (var client = new HttpClient())
             {
+                //Passing service base url
                 client.BaseAddress = new Uri(Baseurl);
+
                 //HTTP GET
                 var responseTask = client.GetAsync("/api/Products/GetProductById/" + id.ToString());
                 responseTask.Wait();
@@ -122,14 +124,13 @@ namespace LevelUp.Web.Controllers
         }
 
         [HttpPost]
+        #region Consume put method
         public IActionResult Edit(Product product)
         {
             using (var client = new HttpClient())
             {
-                //Work here
-                //is succesStatus code failing due to not calling the right uri i think
-
-                client.BaseAddress = new Uri("http://localhost:61723/api/Products/Edit");
+                //Passing service base url
+                client.BaseAddress = new Uri(Baseurl + "/api/Products/Edit");
 
                 //Send a PUT request to the specified Uri
                 var putTask = client.PutAsJsonAsync<Product>("Edit", product);
@@ -142,7 +143,8 @@ namespace LevelUp.Web.Controllers
                 }
             }
             return View(product);
-        }
+        } 
+        #endregion
 
     }
 }
