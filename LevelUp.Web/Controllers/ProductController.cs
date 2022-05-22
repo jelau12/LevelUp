@@ -129,6 +129,8 @@ namespace LevelUp.Web.Controllers
                 responseTask.Wait();
 
                 var result = responseTask.Result;
+
+                //Checking the response is successful or not which is sent using HttpClient
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<Product>();
