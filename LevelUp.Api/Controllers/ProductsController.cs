@@ -22,7 +22,12 @@ namespace LevelUp.Api.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Gets all products from database
+        /// </summary>
+        /// <returns>All products from database in json</returns>
         [HttpGet("GetAllProducts")]
+        #region GetAllProducts
         public async Task<IActionResult> GetAllProducts()
         {
             var products = await _context.Products.ToListAsync();
@@ -33,9 +38,15 @@ namespace LevelUp.Api.Controllers
             }
 
             return Ok(products);
-        }
+        } 
+        #endregion
 
+        /// <summary>
+        /// Gets product with <paramref name="id"/>
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("GetProductById/{id:int}")]
+        #region GetProductById
         public async Task<IActionResult> GetProductById(int id)
         {
             var product = await _context.Products.SingleOrDefaultAsync(p => p.Id == id);
@@ -46,12 +57,14 @@ namespace LevelUp.Api.Controllers
             }
 
             return Ok(product);
-        }
+        } 
+        #endregion
 
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("Create")]
+        #region Create
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Quantity,PicturePath")] Product product)
         {
             //check if any model errors have been added to ModelState
@@ -62,10 +75,16 @@ namespace LevelUp.Api.Controllers
                 await _context.SaveChangesAsync();
             }
             return Ok(product);
-        }
+        } 
+        #endregion
 
+        /// <summary>
+        /// Delete product from database with <paramref name="id"/>
+        /// </summary>
+        /// <param name="id"></param>
         // POST: Movies/Delete/5
         [HttpDelete("Delete/{id:int}")]
+        #region Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -79,12 +98,14 @@ namespace LevelUp.Api.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
-        }
+        } 
+        #endregion
 
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut("Edit")]
+        #region Edit
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Product product)
         {
             //check for modelstate errors
@@ -111,7 +132,8 @@ namespace LevelUp.Api.Controllers
                 }
             }
             return Ok(product);
-        }
+        } 
+        #endregion
 
         //Checks if the product exists in database
         private bool ProductExists(int id)

@@ -15,6 +15,10 @@ namespace LevelUp.Web.Controllers
     {
         string Baseurl = "http://localhost:61723";
 
+        /// <summary>
+        /// Calls GetAllProducts endpoints and gets all products
+        /// </summary>
+        /// <returns>View with list of all products</returns>
         // GET: Products
         #region Consume Get Method
         public async Task<IActionResult> Index()
@@ -52,6 +56,10 @@ namespace LevelUp.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Calls Create endpoint and creates a new product
+        /// </summary>
+        /// <param name="product"></param>
         [HttpPost]
         #region Consume Post Method
         public IActionResult Create(Product product)
@@ -77,6 +85,10 @@ namespace LevelUp.Web.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// Calls Delete endpoint and deletes product with <paramref name="id"/>
+        /// </summary>
+        /// <param name="id"></param>
         #region Consume Delete method
         public IActionResult Delete(int id)
         {
@@ -98,6 +110,11 @@ namespace LevelUp.Web.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// Calls GetProductById endpoint and gets product with <paramref name="id"/>
+        /// </summary>
+        /// <param name="id"></param>
+        #region Consume Get method
         public IActionResult Edit(int id)
         {
             Product product = null;
@@ -121,10 +138,16 @@ namespace LevelUp.Web.Controllers
                 }
             }
             return View(product);
-        }
+        } 
+        #endregion
 
+        /// <summary>
+        /// Calls Edit endpoint and updates the <paramref name="product"/>
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         [HttpPost]
-        #region Consume put method
+        #region Consume Edit method
         public IActionResult Edit(Product product)
         {
             using (var client = new HttpClient())
@@ -145,6 +168,5 @@ namespace LevelUp.Web.Controllers
             return View(product);
         } 
         #endregion
-
     }
 }
