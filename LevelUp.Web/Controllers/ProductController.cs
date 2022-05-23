@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using LevelUp.Web.Models;
