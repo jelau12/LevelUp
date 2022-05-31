@@ -27,12 +27,8 @@ namespace LevelUp.Api.Controllers
         #region GetAllProducts
         public async Task<IActionResult> GetAllProducts()
         {
+            //query
             var products = await _context.Products.ToListAsync();
-
-            if (products == null)
-            {
-                return NotFound();
-            }
 
             return Ok(products);
         } 
@@ -67,7 +63,7 @@ namespace LevelUp.Api.Controllers
             //check if any model errors have been added to ModelState
             if (ModelState.IsValid)
             {
-                //add to protduct to db
+                //add the protduct to db
                 _context.Add(product);
                 await _context.SaveChangesAsync();
             }

@@ -15,7 +15,7 @@ namespace LevelUp.Web.Controllers
         string Baseurl = "http://localhost:61723";
 
         /// <summary>
-        /// Calls GetAllProducts endpoints and gets all products
+        /// Calls GetAllProducts endpoint and gets all products
         /// </summary>
         /// <returns>View with list of all products</returns>
         // GET: Products
