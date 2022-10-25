@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LevelUp.Api.Data
+namespace LevelUp.Entities.Models
 {
     public class Product
     {

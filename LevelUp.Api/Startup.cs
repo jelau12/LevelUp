@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using LevelUp.Entities.Models.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LevelUp.DataAccess;
 
 namespace LevelUp.Api
 {
@@ -26,8 +28,10 @@ namespace LevelUp.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionstring = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Data.LevelUpDbContext>(options => options.UseSqlServer(connectionstring));
+            //var connectionstring = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<LevelUpDbContext>(options => options.UseSqlServer(connectionstring));
+
+            services.AddScoped<ProductRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -1,6 +1,9 @@
-﻿using LevelUp.Api.Data;
+﻿using LevelUp.Entities.Models;
+using LevelUp.DataAccess;
+using LevelUp.Entities.Models.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,12 +14,12 @@ namespace LevelUp.Api.Controllers
     public class ProductsController : ControllerBase
     {
         //fields
-        private LevelUpDbContext _context;
+        private readonly ProductRepository _repository;
 
         //constructer
-        public ProductsController(LevelUpDbContext context)
+        public ProductsController(ProductRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace LevelUp.Api.Controllers
         public async Task<IActionResult> GetAllProducts()
         {
             //query
-            var products = await _context.Products.ToListAsync();
+            IEnumerable<Product> products = await _repository.GetAllAsync();
 
             return Ok(products);
         } 
@@ -40,11 +43,16 @@ namespace LevelUp.Api.Controllers
         /// <param name="id"></param>
         [HttpGet("GetProductById/{id:int}")]
         #region GetProductById
-        public async Task<IActionResult> GetProductById(int id)
+        public async Task<IActionResult> GetProductById(int? id)
         {
-            var product = await _context.Products.SingleOrDefaultAsync(p => p.Id == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            if (product == null)
+            var product = await _repository.GetByIdAsync(id);
+
+            if(product == null)
             {
                 return NotFound();
             }
@@ -60,12 +68,9 @@ namespace LevelUp.Api.Controllers
         #region Create
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Quantity,PicturePath")] Product product)
         {
-            //check if any model errors have been added to ModelState
             if (ModelState.IsValid)
             {
-                //add the protduct to db
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                await _repository.CreateAsync(product);
             }
             return Ok(product);
         } 
@@ -84,11 +89,9 @@ namespace LevelUp.Api.Controllers
             {
                 return NotFound();
             }
-            var Product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Product product = await _repository.GetByIdAsync(id);
 
-            _context.Products.Remove(Product);
-            await _context.SaveChangesAsync();
+            await _repository.DeleteAsync(product);
 
             return Ok();
         } 
@@ -101,19 +104,21 @@ namespace LevelUp.Api.Controllers
         #region Edit
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Product product)
         {
-            //check for modelstate errors
+            if(id != product.Id)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     //try to update in db
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _repository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    //return 404 if product dosent exsist
-                    if (!ProductExists(product.Id))
+                    if (!await ProductExistsAsync(product.Id))
                     {
                         return NotFound();
                     }
@@ -128,10 +133,12 @@ namespace LevelUp.Api.Controllers
         } 
         #endregion
 
-        //Checks if the product exists in database
-        private bool ProductExists(int id)
+        
+        private async Task<bool> ProductExistsAsync(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            Product result = await _repository.GetByIdAsync(id);
+
+            return (result != null);
         }
     }
 }
