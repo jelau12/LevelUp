@@ -10,4 +10,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LevelUp.DataAccess\LevelUp.DataAccess.csproj" />
+    <ProjectReference Include="..\LevelUp.Entities\LevelUp.Entities.csproj" />
+    <ProjectReference Include="..\LevelUp.Services\LevelUp.Services.csproj" />
+  </ItemGroup>
+
 </Project>

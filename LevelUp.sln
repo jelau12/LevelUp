@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LevelUp.Web", "LevelUp.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LevelUp.Entities", "LevelUp.Entities\LevelUp.Entities.csproj", "{01977F53-698A-48F5-9822-7E140491BE4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelUp.DataAccess", "LevelUp.DataAccess\LevelUp.DataAccess.csproj", "{8A576BDC-BCA1-4385-88D1-A9615014967D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LevelUp.DataAccess", "LevelUp.DataAccess\LevelUp.DataAccess.csproj", "{8A576BDC-BCA1-4385-88D1-A9615014967D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelUp.Services", "LevelUp.Services\LevelUp.Services.csproj", "{C31A2878-6099-43C4-A27B-153579795CD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8A576BDC-BCA1-4385-88D1-A9615014967D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A576BDC-BCA1-4385-88D1-A9615014967D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A576BDC-BCA1-4385-88D1-A9615014967D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C31A2878-6099-43C4-A27B-153579795CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31A2878-6099-43C4-A27B-153579795CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C31A2878-6099-43C4-A27B-153579795CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C31A2878-6099-43C4-A27B-153579795CD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
