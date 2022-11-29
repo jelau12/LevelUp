@@ -69,22 +69,20 @@ namespace LevelUp.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         #region Consume Delete method
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            using (var client = new HttpClient())
+            if (id == null)
             {
-                client.BaseAddress = new Uri(Baseurl);
-
-                //HTTP DELETE
-                var deleteTask = client.DeleteAsync("/api/Products/Delete/" + id.ToString());
-                deleteTask.Wait();
-
-                var result = deleteTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("Index");
-                }
+                return NotFound();
             }
+
+            var result = await _service.DeleteProductAsync(id);
+
+            if (result == true)
+            {
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
         }
         #endregion

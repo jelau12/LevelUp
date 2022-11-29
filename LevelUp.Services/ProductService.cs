@@ -2,6 +2,7 @@
 using LevelUp.Services.Base;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -33,6 +34,13 @@ namespace LevelUp.Services
         public virtual async Task<bool> CreateProductAsync(Product product)
         {
             var result = await CallCreateProductAsync(baseUrl, product);
+
+            return result;
+        }
+
+        public virtual async Task<bool> DeleteProductAsync(int? id)
+        {
+            var result = await CallDeleteProductAsync(baseUrl, id);
 
             return result;
         }

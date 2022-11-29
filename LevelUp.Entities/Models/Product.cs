@@ -10,6 +10,7 @@ namespace LevelUp.Entities.Models
     public class Product
     {
         [Key]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
         [JsonPropertyName("name")]
