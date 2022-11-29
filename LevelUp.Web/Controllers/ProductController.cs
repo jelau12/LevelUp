@@ -92,31 +92,15 @@ namespace LevelUp.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         #region Consume Get method
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            Product product = null;
+            var response = await _service.GetByIdAsync(id);
 
-            using (var client = new HttpClient())
+            if(response == null)
             {
-                //Passing service base url
-                client.BaseAddress = new Uri(Baseurl);
-
-                //HTTP GET
-                var responseTask = client.GetAsync("/api/Products/GetProductById/" + id.ToString());
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-
-                //Checking the response is successful or not which is sent using HttpClient
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<Product>();
-                    readTask.Wait();
-
-                    product = readTask.Result;
-                }
+                return NotFound();
             }
-            return View(product);
+            return View(response);
         }
         #endregion
 

@@ -27,6 +27,23 @@ namespace LevelUp.Services.Base
                 throw new ArgumentException("Could not establish connection to endpoint", ex);
             }
         }
+
+        public virtual async Task<string> CallGetByIdAsync(string url, int id)
+        {
+            try
+            {
+                using HttpResponseMessage response = await httpClient.GetAsync(url + "GetProductById/" + id.ToString());
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                return responseBody;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Could not establish connection to endpoint", ex);
+            }
+        }
+
         public virtual async Task<bool> CallCreateProductAsync(string url, Product product)
         {
             try

@@ -24,7 +24,7 @@ namespace LevelUp.Services
 
         public virtual async Task<Product> GetByIdAsync(int id)
         {
-            string json = await CallEndpointAsync(baseUrl);
+            string json = await CallGetByIdAsync(baseUrl, id);
 
             Product productById = JsonSerializer.Deserialize<Product>(json);
 
