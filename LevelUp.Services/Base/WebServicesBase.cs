@@ -22,7 +22,7 @@ namespace LevelUp.Services.Base
 
                 return responseBody;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ArgumentException("Could not establish connection to endpoint", ex);
             }
@@ -52,6 +52,25 @@ namespace LevelUp.Services.Base
                 var deleteTask = await httpClient.DeleteAsync(url + "Delete/" + id.ToString());
 
                 if (deleteTask.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Could not establish connection to endpoint", ex);
+            }
+        }
+
+        public virtual async Task<bool> CallEditAsync(string url, Product product)
+        {
+            string testUrl = $"http://localhost:61723/api/Products/Edit/{product.Id}";
+            try
+            {
+                var editTask = await httpClient.PutAsJsonAsync<Product>(url + "Edit/" + product.Id.ToString(), product);
+
+                if (editTask.IsSuccessStatusCode)
                 {
                     return true;
                 }

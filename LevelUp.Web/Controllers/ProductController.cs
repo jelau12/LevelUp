@@ -127,23 +127,14 @@ namespace LevelUp.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         #region Consume Edit method
-        public IActionResult Edit(Product product)
+        public async Task<IActionResult> Edit(Product product)
         {
-            using (var client = new HttpClient())
+            var result = await _service.EditProductAsync(product);
+            if (result == true)
             {
-                //Passing service base url
-                client.BaseAddress = new Uri(Baseurl + "/api/Products/Edit");
-
-                //Send a PUT request to the specified Uri
-                var putTask = client.PutAsJsonAsync<Product>("Edit", product);
-                putTask.Wait();
-
-                var result = putTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("Index");
-                }
+                return RedirectToAction("Index");
             }
+
             return View(product);
         }
         #endregion

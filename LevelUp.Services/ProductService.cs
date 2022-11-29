@@ -44,5 +44,12 @@ namespace LevelUp.Services
 
             return result;
         }
+
+        public virtual async Task<bool> EditProductAsync(Product product)
+        {
+            var result = await CallEditAsync(baseUrl, product);
+
+            return result;
+        }
     }
 }
