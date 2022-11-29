@@ -17,11 +17,11 @@ namespace LevelUp.Web.Controllers
     {
         string Baseurl = "http://localhost:61723";
 
-        private readonly ProductService _service;
+        private readonly ProductService _productService;
 
         public ProductController(ProductService service)
         {
-            _service = service;
+            _productService = service;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace LevelUp.Web.Controllers
         #region Consume Get Method
         public async Task<IActionResult> Index()
         {
-            var result = await _service.GetAllAsync();
+            var result = await _productService.GetAllAsync();
 
             return View(result);
         }
@@ -51,7 +51,7 @@ namespace LevelUp.Web.Controllers
         #region Consume Post Method
         public async Task<IActionResult> Create(Product product)
         {
-            bool result = await _service.CreateProductAsync(product);
+            bool result = await _productService.CreateProductAsync(product);
 
             if (result == true)
             {
@@ -76,7 +76,7 @@ namespace LevelUp.Web.Controllers
                 return NotFound();
             }
 
-            var result = await _service.DeleteProductAsync(id);
+            var result = await _productService.DeleteProductAsync(id);
 
             if (result == true)
             {
@@ -94,7 +94,7 @@ namespace LevelUp.Web.Controllers
         #region Consume Get method
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _service.GetByIdAsync(id);
+            var response = await _productService.GetByIdAsync(id);
 
             if(response == null)
             {
@@ -113,7 +113,7 @@ namespace LevelUp.Web.Controllers
         #region Consume Edit method
         public async Task<IActionResult> Edit(Product product)
         {
-            var result = await _service.EditProductAsync(product);
+            var result = await _productService.EditProductAsync(product);
             if (result == true)
             {
                 return RedirectToAction("Index");
