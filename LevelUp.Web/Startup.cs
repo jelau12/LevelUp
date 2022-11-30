@@ -48,7 +48,7 @@ namespace LevelUp.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Product}/{action=Index}/{id?}");
+                    pattern: "{controller=ManageProducts}/{action=Index}/{id?}");
             });
         }
     }

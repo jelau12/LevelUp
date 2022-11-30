@@ -13,13 +13,13 @@ using LevelUp.Services;
 
 namespace LevelUp.Web.Controllers
 {
-    public class ProductController : Controller
+    public class ManageProductsController : Controller
     {
         string Baseurl = "http://localhost:61723";
 
         private readonly ProductService _productService;
 
-        public ProductController(ProductService service)
+        public ManageProductsController(ProductService service)
         {
             _productService = service;
         }
