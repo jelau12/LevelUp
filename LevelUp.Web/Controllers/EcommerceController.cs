@@ -13,12 +13,18 @@ namespace LevelUp.Web.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = await _productService.GetAllAsync();
+
+            if(response == null)
+            {
+                return NotFound();
+            }
+
+            return View(response);
         }
 
-        //http://localhost:51219/Ecommerce/ProductDetails/2
         public async Task<IActionResult> ProductDetails(int id)
         {
             var response = await _productService.GetByIdAsync(id);
