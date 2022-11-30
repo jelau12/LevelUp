@@ -1,0 +1,41 @@
+﻿@model LevelUp.Entities.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/css/product.css">
+</head>
+<body>
+    <div class="row">
+        <div class="column">
+            <img src="https://preview.colorlib.com/theme/furn/assets/img/gallery/product-details1.png.webp" />
+        </div>
+
+        <div class="column">
+
+            <div class="productText">
+                <h3>@Model.Name</h3>
+                <h2 class="price">$@Model.Price</h2>
+                <a><span>In Stock</span> : @Model.Quantity</a>
+                <hr />
+                <p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time.</p>
+            </div>
+
+            <div class="cardArea">
+                <div class="countBlock">
+
+                </div>
+                <div class="addToCart">
+                    <a href="#" class="btn">ADD TO CART</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

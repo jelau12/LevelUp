@@ -1,0 +1,29 @@
+﻿.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px;
+}
+
+.price {
+    color: #FD8F5F;
+}
+
+.addToCart {
+    
+}
+
+.btn {
+    background-color: #FD8F5F;
+    text-align: center;
+    color: white;
+    width: 198.75px;
+    height: 54px;
+    line-height: 40px;
+}
