@@ -11,12 +11,12 @@
     height: 300px;
 }
 
-.price {
+span {
     color: #FD8F5F;
 }
 
-.addToCart {
-    
+.inStock {
+    color: #FD8F5F;
 }
 
 .btn {
